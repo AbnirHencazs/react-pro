@@ -13,9 +13,12 @@ export const CounterEffect = ({ initialValue = 0 }: Props) => {
     //Tiene la misma firma que useEffect pero podemos usar LayoutEffect cuando necesitemos asegurarnos que sea despues de que se construyo el HTML
     useLayoutEffect(() => {
         if(counter < MAXIMUM_VALUE) return
-        gsap.to(counterEl.current, { y: -10, duration: 0.2, ease:'ease.out' }).then(() => {
-            gsap.to(counterEl.current, { y:0, duration: 1, ease: 'bounce.out'})
-        })
+
+        const timeLine = gsap.timeline()
+        //El timeline es basicamente un controlador de tiempos
+        timeLine.to( counterEl.current, { y: -10, duration: 0.2, ease:'ease.out' } )
+        .to( counterEl.current, { y:0, duration: 1, ease: 'bounce.out'} )
+        
     }, [counter])
     const handleClick = () => {
         if(counter < MAXIMUM_VALUE){
