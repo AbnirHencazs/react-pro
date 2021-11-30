@@ -5,7 +5,7 @@ const MAXIMUM_VALUE = 10
 
 export const useCounter = () => {
     const [ counter, setCounter ] = useState(5);
-    const counterElement = useRef<HTMLHeadingElement>(null);
+    const counterElement = useRef(null);
 
     const handleClick = () => {
         if(counter < MAXIMUM_VALUE){
