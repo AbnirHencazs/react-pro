@@ -6,9 +6,9 @@ interface CounterState {
     changes: number;
 }
 const INITIAL_STATE: CounterState = {
-    counter: 10,
-    previous: 15,
-    changes: 20
+    counter: 0,
+    previous: 0,
+    changes: 0
 }
 
 type CounterAction = 
@@ -17,6 +17,12 @@ type CounterAction =
 
 const counterReducer = (state: CounterState, action: CounterAction): CounterState => {
     switch (action.type) {
+        case 'increaseBy':
+            return{
+                changes: state.changes + 1,
+                counter: state.counter + action.payload.value,
+                previous: state.counter
+            }
         case 'reset':
             return{
                 changes: 0,
@@ -29,10 +35,20 @@ const counterReducer = (state: CounterState, action: CounterAction): CounterStat
 }
 
 export const CounterReducerComponent = () => {
-    const [ { counter }, dispatch ] = useReducer( counterReducer, INITIAL_STATE )
+    const [ counterState, dispatch ] = useReducer( counterReducer, INITIAL_STATE )
     return(
         <>
-            <h1>Counter Reducer: { counter }</h1>
+            <h1>Counter Reducer</h1>
+            <pre>{JSON.stringify(counterState, null, 2)}</pre>
+            <button onClick={() => dispatch({ type: 'increaseBy', payload: { value: 1 } })}>
+                +1
+            </button>
+            <button onClick={() => dispatch({ type: 'increaseBy', payload: { value: 5 } })}>
+                +5
+            </button>
+            <button onClick={() => dispatch({ type: 'increaseBy', payload: { value: 10 } })}>
+                +10
+            </button>
             <button onClick={ () => dispatch({ type: 'reset'}) }>
                 Reset
             </button>
