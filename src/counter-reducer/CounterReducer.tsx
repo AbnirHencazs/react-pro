@@ -1,4 +1,5 @@
 import { useReducer, useState } from "react"
+import * as CounterActions from './actions/actions'
 import { CounterState } from "./interfaces/interfaces"
 import { counterReducer } from "./state/counterReducer"
 
@@ -15,16 +16,16 @@ export const CounterReducerComponent = () => {
         <>
             <h1>Counter Reducer Segmentado</h1>
             <pre>{JSON.stringify(counterState, null, 2)}</pre>
-            <button onClick={() => dispatch({ type: 'increaseBy', payload: { value: 1 } })}>
+            <button onClick={() => dispatch( CounterActions.doIncreaseBy(1) )}>
                 +1
             </button>
-            <button onClick={() => dispatch({ type: 'increaseBy', payload: { value: 5 } })}>
+            <button onClick={() => dispatch( CounterActions.doIncreaseBy(5) )}>
                 +5
             </button>
-            <button onClick={() => dispatch({ type: 'increaseBy', payload: { value: 10 } })}>
+            <button onClick={() => dispatch( CounterActions.doIncreaseBy(10)  )}>
                 +10
             </button>
-            <button onClick={ () => dispatch({ type: 'reset'}) }>
+            <button onClick={ () => dispatch( CounterActions.doReset() ) }>
                 Reset
             </button>
         </>
